@@ -17,20 +17,20 @@
 var getElementsByClassName = function(className) {
   // input: a string name
   // output: an array of Nodelist objects that match the specified name
-  // constraints: Use a recursive function to test ALL nodes and there child nodes to entirely traverse the DOM and check for the className
+  // constraints: Use a recursive function to test ALL nodes and there subsequent child nodes to entirely traverse the DOM and check if the className is present
   // edge-cases: if no matches, return empty array
 
   var docBody = document.body; // store the root body node in an variable
   var classNodes = []; // declare a empty array to store the nodes with the class name
   
-  function checkNode(node) {
+  var checkNode = function(node) { // create an inner function that takes a node as a argument and checks if it has the class name
   	if (node.classList && node.classList.contains(className)) {
-  		classNodes.push(node);
+  		classNodes.push(node); // if it does, save the node to the array
   	}
-  	node.childNodes.forEach(function(child) {
-  		checkNode(child);
+  	node.childNodes.forEach(function(child) { // iterate through the nodes children and check the node for the class name
+  		checkNode(child); // call the recursive function with the child node
   	});
   }
-  checkNode(docBody);
-  return classNodes;
+  checkNode(docBody); // top of HTML document, the first check!
+  return classNodes; // return the array with all nodes that have the className present
 };
