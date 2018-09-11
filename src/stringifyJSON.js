@@ -13,16 +13,16 @@ var stringifyJSON = function(obj) {
  	}
  	return '['+results.join(',')+']'; // join all values separated by comma and concatenate string quotes around the array to convert to a string
  }
- if (obj && typeof obj === 'object') {
- 	var results = [];
+ if (obj && typeof obj === 'object') { // check if object has values and IS a object
+ 	var results = []; // declare a empty return array
     
-    for (var key in obj) {
-    	if ( obj[key] === undefined || typeof(obj[key]) === 'function' ) {
-    		continue;
+    for (var key in obj) { // loop through each property in the object
+    	if (obj[key] === undefined || typeof(obj[key]) === 'function') {
+    		continue; // if the property does not exist or is a function, continue the iteration and do NOT stringify
     	}
-    	results.push(stringifyJSON(key)+':'+stringifyJSON(obj[key]) );
+    	results.push(stringifyJSON(key)+':'+stringifyJSON(obj[key])); // else push a stringified version of the key and value pair
     }
- 	return '{'+results.join(',')+'}';
+ 	return '{'+results.join(',')+'}'; // join the results with a , separator and surround the array with object literal braces
  }
  if ( typeof obj === 'string' ) { // if obj is a string concatenate it with string literals
  	return '"'+obj+'"';
